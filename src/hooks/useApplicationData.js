@@ -22,6 +22,27 @@ export default function useApplicationData() {
     interviewers: {},
   });
 
+  function getNullSpots(day, appointments) {
+    let count = 0;
+
+    for (const id of day.appointments) {
+      const appointment = appointments[id];
+      if(!appointment.interview) {
+        count ++
+      }
+    }
+    return count;
+  };
+
+  function updootSpots(dayName, days, appointments) {
+    const spreadDays = [...days];
+    const day = spreadDays.find(itmem => itmem.name === dayName);
+    const nulls = getNullSpots(day, appointments);
+    day.spots = nulls;
+    console.log(day.spots);
+    return spreadDays;
+  };
+
   
   function updateSpots(days, appointments, id, value) {
     console.log(appointments[id].interview);
@@ -53,17 +74,22 @@ export default function useApplicationData() {
       [id]: appointment
     };
 
+    console.log(state);
    
-const days = updateSpots([...state.days], state.appointments,  id, -1)
+//const days = updateSpots([...state.days], state.appointments,  id, -1)
+const days = updootSpots(state.day, state.days, appointments);
     
 
     return axios.put(`/api/appointments/${id}`, { interview })
       .then(() => {
+        
+    
         setState({
           ...state,
           appointments,
           days
         });
+        console.log(state);
       })
   };
 
@@ -79,8 +105,11 @@ const days = updateSpots([...state.days], state.appointments,  id, -1)
       [id]: appointment
     };
 
-   
-const days = updateSpots([...state.days], state.appointments,    id, 1)
+  
+  //const days = updateSpots([...state.days], state.appointments,    id, 1)
+  const days = updootSpots(state.day, state.days, appointments);
+
+
 
     return axios.delete(`/api/appointments/${id}`).then( () => {
       setState({
