@@ -7,7 +7,6 @@ export default function InterviewerListItem(props) {
 
   const className = classNames({
     "interviewers__item": true,
-    "interviewers__item-image": props.avatar,
     "interviewers__item--selected": props.selected
   })
 
@@ -16,7 +15,7 @@ export default function InterviewerListItem(props) {
   <img
     className="interviewers__item-image"
     src={props.avatar}
-    alt="Sylvia Palmer"
+    alt={props.name}
   />
   {props.selected? props.name : ""} 
 </li>

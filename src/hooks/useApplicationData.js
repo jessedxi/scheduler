@@ -39,7 +39,7 @@ export default function useApplicationData() {
     const day = spreadDays.find(itmem => itmem.name === dayName);
     const nulls = getNullSpots(day, appointments);
     day.spots = nulls;
-    console.log(day.spots);
+    //console.log(day.spots);
     return spreadDays;
   };
 
@@ -74,7 +74,7 @@ export default function useApplicationData() {
       [id]: appointment
     };
 
-    console.log(state);
+    //console.log(state);
    
 //const days = updateSpots([...state.days], state.appointments,  id, -1)
 const days = updootSpots(state.day, state.days, appointments);
@@ -89,7 +89,6 @@ const days = updootSpots(state.day, state.days, appointments);
           appointments,
           days
         });
-        console.log(state);
       })
   };
 
