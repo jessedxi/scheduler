@@ -1,8 +1,8 @@
 import React from "react";
 import "components/DayListItem.scss"
-
 import classNames from "classnames";
 
+//Renders indiviudals days to be passed to day list
 export default function DayListItem(props) {
 
   //conditionally renders spots on DayListItem based on passed props

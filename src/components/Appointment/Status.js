@@ -1,6 +1,6 @@
 import React from "react";
 
-
+//Renders pending statuses upon save/delete
 export default function Status(props) {
   return(<main className="appointment__card appointment__card--status">
   <img

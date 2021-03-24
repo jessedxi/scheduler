@@ -1,5 +1,6 @@
 //Helper functions used in index to get appointment/interviewer data from state.
 
+//Provides appointments for selected day
 export function getAppointmentsForDay(state, day) {
   if (!state.days) {
     return [];
@@ -14,6 +15,7 @@ export function getAppointmentsForDay(state, day) {
   return appointments;
 };
 
+//Retrieves interview for given interview id
 export function getInterview(state, interview) {
   let interviewers = state.interviewers;
   let result = {};
@@ -22,6 +24,7 @@ export function getInterview(state, interview) {
   return result;
 };
 
+//Provides array of interviews for slected day
 export function getInterviewersForDay(state, day) {
   if (!state.days) {
     return [];

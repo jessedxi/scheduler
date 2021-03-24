@@ -9,9 +9,7 @@ import Confirm from "./Confirm";
 import Error from "./Error";
 import useVisualMode from "hooks/useVisualMode";
 
-
-
-
+//Renders appointment view, conditionally on mode set by click events
 export default function Appointment(props) {
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";

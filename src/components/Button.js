@@ -1,8 +1,8 @@
 import React from "react";
 import classNames from "classnames";
-
 import "components/Button.scss";
 
+//Conditionall renders buttons for appointment views
 export default function Button(props) {
    const buttonClass = classNames({
       button: true,

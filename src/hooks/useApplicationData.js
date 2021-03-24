@@ -2,6 +2,8 @@ import axios from 'axios';
 import { useEffect, useState } from "react";
 
 export default function useApplicationData() {
+
+  //Queries API database, returns data as state object
   useEffect(() => {
     Promise.all([
       axios.get('/api/days'),

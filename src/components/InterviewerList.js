@@ -3,6 +3,7 @@ import "components/InterviewerList.scss";
 import InterviewerListItem from "components/InterviewerListItem";
 import PropTypes from 'prop-types';
 
+//Renders list of interviewers 
 export default function InterviewerList(props) {
    const interviewers = props.interviewers.map(interviewer => {
      return <InterviewerListItem
@@ -17,10 +18,9 @@ export default function InterviewerList(props) {
   <h4 className="interviewers__header text--light">Interviewer</h4>
   <ul className="interviewers__list">{interviewers}</ul>
 </section>
-
-
 };
 
+//ensures interviewer list prop exists -- used for jest tests
 InterviewerList.propTypes = {
   interviewers: PropTypes.array.isRequired
 }; 

@@ -2,6 +2,7 @@ import { renderHook, act } from "@testing-library/react-hooks";
 
 import useVisualMode from "hooks/useVisualMode";
 
+//Test modes to test mode transition:
 const FIRST = "FIRST";
 const SECOND = "SECOND";
 const THIRD = "THIRD";
