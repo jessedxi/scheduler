@@ -27,12 +27,13 @@ export default function Appointment(props) {
     props.interview ? SHOW : EMPTY
   );
 
+  //creates new interview with passed in stuedent name and interviewer, transitions form and saves to api DB
   function save(name, interviewer) {
-
     const interview = {
       student: name,
       interviewer
     };
+
     transition(SAVING);
     props.bookInterview(props.id, interview)
       .then(() => {
@@ -41,8 +42,9 @@ export default function Appointment(props) {
       .catch( err => {
         transition(ERROR_SAVE, true)
       })
-  }
+  };
 
+  //Removes interview from API DB when called on cofirm
   function destroy(id) {
     transition(DELETE, true)
     props.cancelInterview(props.id)
@@ -98,4 +100,4 @@ export default function Appointment(props) {
     />)}
 
   </article>);
-}
+};

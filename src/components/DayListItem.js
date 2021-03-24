@@ -5,17 +5,18 @@ import classNames from "classnames";
 
 export default function DayListItem(props) {
 
+  //conditionally renders spots on DayListItem based on passed props
   const formatSpots = function(props) {
-    if (props.spots > 1) return `${props.spots} spots remaining`; 
-    if (props.spots === 1)  return `${props.spots} spot remaining`;
-    
+    if (props.spots > 1) return `${props.spots} spots remaining`;
+    if (props.spots === 1) return `${props.spots} spot remaining`;
+
     return `no spots remaining`
-  }
+  };
 
   const dayClassName = classNames({
     'day-list__item': true,
     'day-list__item--selected': props.selected,
-    'day-list__item--full': !props.spots 
+    'day-list__item--full': !props.spots
   });
 
   return (
@@ -24,4 +25,4 @@ export default function DayListItem(props) {
       {formatSpots(props)}
     </li>
   );
-}
+};

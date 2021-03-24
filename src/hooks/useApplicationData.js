@@ -2,8 +2,6 @@ import axios from 'axios';
 import { useEffect, useState } from "react";
 
 export default function useApplicationData() {
-
-
   useEffect(() => {
     Promise.all([
       axios.get('/api/days'),
@@ -14,7 +12,6 @@ export default function useApplicationData() {
     })
   }, [])
 
-
   const [state, setState] = useState({
     day: "Monday",
     days: [],
@@ -22,48 +19,35 @@ export default function useApplicationData() {
     interviewers: {},
   });
 
+  //counts how many interview spots are available
   function getNullSpots(day, appointments) {
     let count = 0;
 
     for (const id of day.appointments) {
       const appointment = appointments[id];
-      if(!appointment.interview) {
-        count ++
+      if (!appointment.interview) {
+        count++
       }
     }
+
     return count;
   };
 
+  //updates spots from newly set state after booking or cancelling an appointment
   function updootSpots(dayName, days, appointments) {
     const spreadDays = [...days];
     const day = spreadDays.find(itmem => itmem.name === dayName);
     const nulls = getNullSpots(day, appointments);
     day.spots = nulls;
-    //console.log(day.spots);
+
     return spreadDays;
   };
 
-  
-  function updateSpots(days, appointments, id, value) {
-    console.log(appointments[id].interview);
-    days.forEach(day => {
-      if ((!appointments[id].interview && value === -1) || value === 1) {
-        if(day.appointments.includes(id)) {
-          day.spots += value;
-        }
-      }
-    })
-    return days;
-  }
-
-
-
+  //sets selected day from state
   const setDay = day => setState({ ...state, day });
 
- 
-
+  //adds new interciew in selected spot to APU DB
   function bookInterview(id, interview) {
-    
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -74,25 +58,19 @@ export default function useApplicationData() {
       [id]: appointment
     };
 
-    //console.log(state);
-   
-//const days = updateSpots([...state.days], state.appointments,  id, -1)
-const days = updootSpots(state.day, state.days, appointments);
-    
+    const days = updootSpots(state.day, state.days, appointments);
 
     return axios.put(`/api/appointments/${id}`, { interview })
       .then(() => {
-        
-    
         setState({
           ...state,
           appointments,
           days
         });
-      })
+      });
   };
 
-
+  //removes selected interview from API DB
   function cancelInterview(id) {
     const appointment = {
       ...state.appointments[id],
@@ -104,22 +82,16 @@ const days = updootSpots(state.day, state.days, appointments);
       [id]: appointment
     };
 
-  
-  //const days = updateSpots([...state.days], state.appointments,    id, 1)
-  const days = updootSpots(state.day, state.days, appointments);
+    const days = updootSpots(state.day, state.days, appointments);
 
-
-
-    return axios.delete(`/api/appointments/${id}`).then( () => {
+    return axios.delete(`/api/appointments/${id}`).then(() => {
       setState({
         ...state,
         appointments,
         days
       })
     })
-  }
-
-
+  };
 
   return { state, setDay, cancelInterview, bookInterview };
-}
+};

@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-
+import React from "react";
 import "components/Application.scss";
 import DayList from "components/DayList"
 import Appointment from "components/Appointment";
@@ -10,14 +8,12 @@ import useApplicationData from "hooks/useApplicationData";
 
 
 export default function Application(props) {
+  const { state, setDay, bookInterview, cancelInterview } = useApplicationData();
 
- 
-
- const {state, setDay, bookInterview, cancelInterview } = useApplicationData();
-
+  /*Vars get appointments and interviews from state, populates Appointment components with data in schedule,
+  schedule used in "schedule" section of Application. */
   let dailyAppointments = [];
   let dailyInterviewers = [];
-
   dailyAppointments = getAppointmentsForDay(state, state.day);
   dailyInterviewers = getInterviewersForDay(state, state.day);
 
@@ -36,7 +32,6 @@ export default function Application(props) {
     );
   });
 
-  
   return (
     <main className="layout">
       <section className="sidebar">
@@ -65,5 +60,5 @@ export default function Application(props) {
       </section>
     </main>
   );
-}
+};
 
