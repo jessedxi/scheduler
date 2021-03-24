@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import "./styles.scss";
 import Header from "./Header";
 import Show from "./Show";
@@ -37,7 +37,7 @@ export default function Appointment(props) {
       .then(() => {
         transition(SHOW)
       })
-      .catch( err => {
+      .catch(err => {
         transition(ERROR_SAVE, true)
       })
   };
@@ -49,7 +49,7 @@ export default function Appointment(props) {
       .then(() => {
         transition(EMPTY);
       })
-      .catch( err => {
+      .catch(err => {
         transition(ERROR_DELETE, true);
       })
   };
@@ -68,19 +68,24 @@ export default function Appointment(props) {
         onEdit={() => transition(EDIT)}
       />
     )}
+    
     {mode === CREATE && < Form
       onCancel={back}
       interviewers={props.interviewers}
       onSave={save}
     />}
+
     {mode === SAVING && < Status
       message={`Saving...`} />}
+
     {mode === CONFIRM && < Confirm
       message={`Are you sure?`}
       onCancel={back}
       onConfirm={destroy} />}
+
     {mode === DELETE && < Status
       message={`Deleting...`} />}
+
     {mode === EDIT && < Form
       onCancel={back}
       onSave={save}
@@ -88,14 +93,15 @@ export default function Appointment(props) {
       name={props.interview.student}
       interviewer={props.interview.interviewer.id}
     />}
-    {mode === ERROR_SAVE && (< Error 
-    onClose={back}
-    message={`Cannot SAVE - Cannot connect to server...`}
-    />)}
-    {mode === ERROR_DELETE && (< Error
-    onClose={back}
-    message={`Cannot DELETE - Cannot connect to server... `}
+
+    {mode === ERROR_SAVE && (< Error
+      onClose={back}
+      message={`Cannot SAVE - Cannot connect to server...`}
     />)}
 
+    {mode === ERROR_DELETE && (< Error
+      onClose={back}
+      message={`Cannot DELETE - Cannot connect to server... `}
+    />)}
   </article>);
 };
